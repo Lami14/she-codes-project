@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>World Clock - Matt Delac</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>World Clock</h1>
+
+      <select id="citySelect" onchange="displayCityTime()">
+        <option value="">Select a city..</option>
+        <option value="Europe/London">London</option>
+        <option value="America/New_York">New York</option>
+        <option value="Pacific/Auckland">Auckland</option>
+      </select>
+
+      <div class="city" id="losAngeles">
+        <h2>Los Angeles 🇺🇸</h2>
+        <div class="date"></div>
+        <div class="time"></div>
+      </div>
+      <div class="city" id="sydney">
+        <h2>Sydney 🇦🇺</h2>
+        <div class="date"></div>
+        <div class="time"></div>
+      </div>
+    </div>
+    
+    <footer>
+      This project was coded by Lamla Mhlana and is open-sourced on 
+      <a href="https://github.com/yourusername/your-repository" target="_blank">GitHub</a>.
+    </footer>
+
+    <script>
+      function updateTimeForCity(cityId, timeZone) {
+        const cityElement = document.getElementById(cityId);
+        const now = new Date().toLocaleString("en-GB", {
+          timeZone,
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric"
+        });
+
+        const [datePart, timePart] = now.split(", ");
+        cityElement.querySelector(".date").textContent = datePart;
+        cityElement.querySelector(".time").textContent = timePart;
+      }
+
+      function displayCityTime() {
+        const select = document.getElementById("citySelect");
+        const timeZone = select.value;
+
+        if (timeZone) {
+          const now = new Date().toLocaleString("en-GB", {
+            timeZone,
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            second: "numeric"
+          });
+          alert(`Current date and time in ${select.options[select.selectedIndex].text}: ${now}`);
+        }
+      }
+
+      function updateAllTimes() {
+        updateTimeForCity("losAngeles", "America/Los_Angeles");
+        updateTimeForCity("sydney", "Australia/Sydney");
+      }
+
+      // Update times every second
+      setInterval(updateAllTimes, 1000);
+      updateAllTimes();
+    </script>
+  </body>
+</html>
