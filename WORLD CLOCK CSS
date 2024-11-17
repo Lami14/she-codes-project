@@ -1,0 +1,106 @@
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  padding: 20px;
+}
+
+/* Container styling */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styling */
+h1 {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Select dropdown styling */
+select {
+  font-size: 16px;
+  padding: 8px;
+  width: 200px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  background-color: #fff;
+}
+
+select:focus {
+  outline: none;
+  border-color: #0056b3;
+}
+
+/* City section styling */
+.city {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.city h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.city .date,
+.city .time {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+/* Footer styling */
+footer {
+  margin-top: 30px;
+  font-size: 14px;
+  color: #777;
+}
+
+footer a {
+  color: #0056b3;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+  .container {
+    padding: 15px;
+  }
+
+  select {
+    width: 100%;
+  }
+
+  .city h2 {
+    font-size: 20px;
+  }
+
+  .city .date,
+  .city .time {
+    font-size: 16px;
+  }
+}
