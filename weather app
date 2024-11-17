@@ -1,0 +1,80 @@
+<!-- HTML structure for additional info and footer -->
+<div id="weather-app">
+  <form id="search-form">
+    <input type="text" id="search-input" placeholder="Enter a city.." />
+    <button type="submit">Search</button>
+  </form>
+  <div id="weather-info">
+    <h2 id="current-city">Paris</h2>
+    <div id="current-date">Sunday 12:17</div>
+    <div id="weather-description">Mist</div>
+    <div id="current-temperature">7°C</div>
+    <div id="extra-info">
+      <p>Humidity: <span id="humidity"></span>%</p>
+      <p>Wind: <span id="wind-speed"></span> km/h</p>
+    </div>
+  </div>
+</div>
+<footer>
+  <p>This project was coded by Lamla Mhlana, is open-sourced on 
+    <a href="https://github.com/your-username/your-repo" target="_blank">GitHub</a> 
+    and hosted on <a href="https://your-netlify-link.netlify.app" target="_blank">Netlify</a>.
+  </p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  // Coded by Lamla Mhlana
+
+  function displayTemperature(response) {
+    let temperatureElement = document.querySelector("#current-temperature");
+    let temperature = Math.round(response.data.temperature.current);
+    let cityElement = document.querySelector("#current-city");
+    cityElement.innerHTML = response.data.city.charAt(0).toUpperCase() + response.data.city.slice(1);
+    temperatureElement.innerHTML = `${temperature}°C`;
+
+    // Display additional weather details
+    let descriptionElement = document.querySelector("#weather-description");
+    let humidityElement = document.querySelector("#humidity");
+    let windElement = document.querySelector("#wind-speed");
+
+    descriptionElement.innerHTML = response.data.condition.description;
+    humidityElement.innerHTML = response.data.temperature.humidity;
+    windElement.innerHTML = Math.round(response.data.wind.speed * 3.6); // Convert m/s to km/h
+  }
+
+  function handleError(error) {
+    alert("Unable to retrieve weather data. Please check the city name and try again.");
+  }
+
+  function search(event) {
+    event.preventDefault();
+    let searchInputElement = document.querySelector("#search-input");
+    let city = searchInputElement.value.trim();
+
+    if (city) {
+      let apiKey = "b2a5adcct04b33178913oc335f405433";
+      let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+
+      axios.get(apiUrl).then(displayTemperature).catch(handleError);
+    } else {
+      alert("Please enter a city name.");
+    }
+  }
+
+  function formatDate(date) {
+    let minutes = date.getMinutes().toString().padStart(2, '0');
+    let hours = date.getHours().toString().padStart(2, '0');
+    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    let formattedDay = days[date.getDay()];
+
+    return `${formattedDay} ${hours}:${minutes}`;
+  }
+
+  let searchForm = document.querySelector("#search-form");
+  searchForm.addEventListener("submit", search);
+
+  let currentDateElement = document.querySelector("#current-date");
+  let currentDate = new Date();
+  currentDateElement.innerHTML = formatDate(currentDate);
+</script>
